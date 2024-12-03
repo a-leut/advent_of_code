@@ -9,13 +9,12 @@ def get_muls(s):
     total = 0
     pairs = []
     mode = 'nuttin'
+    enabled_mode = 'do'
     n1 = ''
     n2 = ''
     for i in range(len(s)):
-        if mode == 'nuttin':
-            if s[i] == '(' and i > 3:
-                if s[i-3:i] == 'mul':
-                    mode = 'start_num'
+        if s[i] == '(' and i > 3 and s[i-3:i] == 'mul':
+            mode = 'start_num'
         elif mode == 'start_num':
             if s[i] in DIGITS:
                 n1 += s[i]
