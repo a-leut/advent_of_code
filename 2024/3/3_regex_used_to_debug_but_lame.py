@@ -48,14 +48,8 @@ def get_muls(s):
 
 def compute_valid_mul_sum(corrupted_memory):
     pairs = []
-    # Define the regex pattern for valid `mul(X,Y)` instructions
     pattern = r'mul\((\d{1,3}),(\d{1,3})\)'
-    
-    # Find all matches in the corrupted memory
     matches = re.findall(pattern, corrupted_memory)
-    
-    # Compute the sum of products
-    total_sum = sum(int(x) * int(y) for x, y in matches)
     return [(int(x), int(y)) for x, y in matches]
 
 def find_missing_pairs(l1, l2):
