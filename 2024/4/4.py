@@ -22,7 +22,6 @@ def count_xmas(g: List[List[str]]) -> int:
     w = len(g[0])
     h = len(g)
     c = 0
-    good = []
     for x in range(w):
         for y in range(h):
             if g[y][x] == T[0]:
@@ -34,14 +33,39 @@ def count_xmas(g: List[List[str]]) -> int:
                     # check if we match
                     candiate_match = ''.join([g[y + (v['y'] * i)][x + (v['x'] * i)] for i in range(1, len(T))])
                     if candiate_match == T[1:]:
-
                         c += 1
-                        good.append([(y + (v['y'] * i), x + (v['x'] * i)) for i in range(0, len(T))])    
+    return c
+
+def count_x_mas(g: List[List[str]]) -> int:
+    if len(g) == 0:
+        return 0
+    w = len(g[0])
+    h = len(g)
+    c = 0
+    for x in range(w):
+        for y in range(h):
+            if g[y][x] == 'A':
+                if x < 1 or y > w - 2 or y < 1 or y > h - 2:
+                    continue
+                try:
+                    if ((g[y - 1][x - 1] == 'M' and g[y + 1][x + 1] == 'S') \
+                    # down right
+                    or (g[y - 1][x - 1] == 'S' and g[y + 1][x + 1] == 'M')) \
+                    and ((g[y - 1][x + 1] == 'M' and g[y + 1][x - 1] == 'S') \
+                    # bottom left
+                    or (g[y - 1][x + 1] == 'S' and g[y + 1][x - 1] == 'M')):
+                        c += 1 
+                except:
+                    pass
     return c
 
 
 with open('input.txt', 'r') as f:
     g = string_to_letter_grid(f.read())
 
-c = count_xmas(g)
-print(c)
+c1 = count_xmas(g)
+print(c1)
+
+c2 = count_x_mas(g)
+print(c2)
+
